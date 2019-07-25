@@ -13,12 +13,12 @@ import { withStyles } from "@material-ui/core/styles";
 
 // Context
 import { ThemeContext } from "./contexts/ThemeContext.js";
+import { withLanguageContext } from "./contexts/LanguageContext.js";
 
 class Navbar extends Component {
   static contextType = ThemeContext; // Tells the component to look up and see if they're inside of a ThemeContext provider.
 
   render() {
-    // console.log(this.context);
     const { classes } = this.props;
     const { isDarkMode, toggleTheme } = this.context;
 
@@ -40,7 +40,10 @@ class Navbar extends Component {
               </div>
               <InputBase
                 placeholder="Search..."
-                classes={{ root: classes.inputRoot, input: classes.inputInput }}
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput
+                }}
               />
             </div>
           </Toolbar>
