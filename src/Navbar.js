@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import styles from "./styles/NavBarStyles";
 
 // Material UI stuff
 import AppBar from "@material-ui/core/AppBar";
@@ -12,12 +13,14 @@ import { withStyles } from "@material-ui/core/styles";
 
 class Navbar extends Component {
   render() {
+    const { classes } = this.props;
+
     return (
       <div className={classes.root}>
         <AppBar position="static" color="primary">
           <Toolbar>
             <IconButton className={classes.menuButton} color="inherit">
-              <span>🇺🇸</span>
+              <span>US</span>
             </IconButton>
             <Typography className={classes.title} color="inherit">
               App Title
@@ -28,6 +31,10 @@ class Navbar extends Component {
               <div className={classes.searchIcon}>
                 <SearchIcon />
               </div>
+              <InputBase
+                placeholder="Search..."
+                classes={{ root: classes.inputRoot, input: classes.inputInput }}
+              />
             </div>
           </Toolbar>
         </AppBar>
@@ -36,4 +43,4 @@ class Navbar extends Component {
   }
 }
 
-export default Navbar;
+export default withStyles(styles)(Navbar);
