@@ -11,13 +11,20 @@ import SearchIcon from "@material-ui/icons/Search";
 import Switch from "@material-ui/core/Switch";
 import { withStyles } from "@material-ui/core/styles";
 
+// Context
+import { ThemeContext } from "./contexts/ThemeContext.js";
+
 class Navbar extends Component {
+  static contextType = ThemeContext; // Tells the component to look up and see if they're inside of a ThemeContext provider.
+
   render() {
+    // console.log(this.context);
     const { classes } = this.props;
+    const { isDarkMode } = this.context;
 
     return (
       <div className={classes.root}>
-        <AppBar position="static" color="primary">
+        <AppBar position="static" color={isDarkMode ? "default" : "primary"}>
           <Toolbar>
             <IconButton className={classes.menuButton} color="inherit">
               <span>US</span>
