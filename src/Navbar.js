@@ -15,12 +15,26 @@ import { withStyles } from "@material-ui/core/styles";
 import { ThemeContext } from "./contexts/ThemeContext.js";
 import { withLanguageContext } from "./contexts/LanguageContext.js";
 
+const content = {
+  english: {
+    search: "Search",
+    flag: "US"
+  },
+
+  spanish: {
+    search: "Buscar",
+    flag: "ES"
+  }
+};
+
 class Navbar extends Component {
   static contextType = ThemeContext; // Tells the component to look up and see if they're inside of a ThemeContext provider.
 
   render() {
     const { classes } = this.props;
     const { isDarkMode, toggleTheme } = this.context;
+    const { language } = this.prop.languageContext;
+    const { search, flag } = content[language];
 
     return (
       <div className={classes.root}>
@@ -53,4 +67,4 @@ class Navbar extends Component {
   }
 }
 
-export default withStyles(styles)(Navbar);
+export default withLanguageContext(withStyles(styles)(Navbar));
