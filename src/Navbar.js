@@ -33,7 +33,7 @@ class Navbar extends Component {
   render() {
     const { classes } = this.props;
     const { isDarkMode, toggleTheme } = this.context;
-    const { language } = this.prop.languageContext;
+    const { language } = this.props.languageContext;
     const { search, flag } = content[language];
 
     return (
@@ -41,7 +41,7 @@ class Navbar extends Component {
         <AppBar position="static" color={isDarkMode ? "default" : "primary"}>
           <Toolbar>
             <IconButton className={classes.menuButton} color="inherit">
-              <span>US</span>
+              <span>{flag}</span>
             </IconButton>
             <Typography className={classes.title} color="inherit">
               App Title
@@ -53,7 +53,7 @@ class Navbar extends Component {
                 <SearchIcon />
               </div>
               <InputBase
-                placeholder="Search..."
+                placeholder={`${search}...`}
                 classes={{
                   root: classes.inputRoot,
                   input: classes.inputInput
