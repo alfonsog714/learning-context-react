@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useContext } from "react";
 import styles from "./styles/NavBarStyles";
 
 // Material UI stuff
@@ -13,7 +13,7 @@ import { withStyles } from "@material-ui/core/styles";
 
 // Context
 import { ThemeContext } from "./contexts/ThemeContext.js";
-import { withLanguageContext } from "./contexts/LanguageContext.js";
+import { LanguageContext } from "./contexts/LanguageContext.js";
 
 const content = {
   english: {
@@ -27,44 +27,40 @@ const content = {
   }
 };
 
-class Navbar extends Component {
-  static contextType = ThemeContext; // Tells the component to look up and see if they're inside of a ThemeContext provider.
+function Navbar(props) {
+  const { classes } = props;
+  const { isDarkMode, toggleTheme } = useContext(ThemeContext);
+  const { language } = useContext(LanguageContext);
+  const { search, flag } = content[language];
 
-  render() {
-    const { classes } = this.props;
-    const { isDarkMode, toggleTheme } = this.context;
-    const { language } = this.props.languageContext;
-    const { search, flag } = content[language];
-
-    return (
-      <div className={classes.root}>
-        <AppBar position="static" color={isDarkMode ? "default" : "primary"}>
-          <Toolbar>
-            <IconButton className={classes.menuButton} color="inherit">
-              <span>{flag}</span>
-            </IconButton>
-            <Typography className={classes.title} color="inherit">
-              App Title
-            </Typography>
-            <Switch onChange={toggleTheme} />
-            <div className={classes.grow} />
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <InputBase
-                placeholder={`${search}...`}
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput
-                }}
-              />
+  return (
+    <div className={classes.root}>
+      <AppBar position="static" color={isDarkMode ? "default" : "primary"}>
+        <Toolbar>
+          <IconButton className={classes.menuButton} color="inherit">
+            <span>{flag}</span>
+          </IconButton>
+          <Typography className={classes.title} color="inherit">
+            App Title
+          </Typography>
+          <Switch onChange={toggleTheme} />
+          <div className={classes.grow} />
+          <div className={classes.search}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
             </div>
-          </Toolbar>
-        </AppBar>
-      </div>
-    );
-  }
+            <InputBase
+              placeholder={`${search}...`}
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput
+              }}
+            />
+          </div>
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
 }
 
-export default withLanguageContext(withStyles(styles)(Navbar));
+export default withStyles(styles)(Navbar);
